@@ -1,0 +1,23 @@
+{
+  "name": "nucleus-model-factory",
+  "version": "1.0.0",
+  "description": "This module generates Sequelize.js models based on JSON configuration. Models are used in combination with Express.js routes.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dzuluaga/nucleus-model-factory.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dzuluaga/nucleus-model-factory/issues"
+  },
+  "homepage": "https://github.com/dzuluaga/nucleus-model-factory#readme",
+  "dependencies": {
+    "url-join": "0.0.1"
+  }
+}
