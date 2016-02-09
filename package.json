@@ -1,6 +1,6 @@
 {
   "name": "nucleus-model-factory",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "This module generates Sequelize.js models based on JSON configuration. Models are used in combination with Express.js routes.",
   "main": "index.js",
   "scripts": {

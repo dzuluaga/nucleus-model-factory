@@ -35,6 +35,7 @@ function modelFactory( options ) {
   };
 
   function generateModel(options) {
+    if( !options.includeAlias ) { throw new Error('Set includeAlias attribute from the model.'); };
     var model = options.sequelize.define(
         options.model,
         {
@@ -53,6 +54,7 @@ function modelFactory( options ) {
     options.path = options.path || urljoin( '/', model.options.name.plural.toLowerCase()) ;
     model.listAttributes = options.listAttributes;
     model.path = options.path;
+    model.includeAlias = options.includeAlias;
     return model;
   };
 
