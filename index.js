@@ -70,7 +70,8 @@ function modelFactory(  ) {
           classMethods: getAssociations(options.associations)
         });
     options.path = options.path || urljoin( '/', model.options.name.plural.toLowerCase()) ;
-    model.listAttributes = options.listAttributes;
+    debug('getting listAtrribute', options.listAttributes);
+    model.listAttributes = Object.keys( options.listAttributes ).map( function ( key ) { return key; });
     model.path = options.path;
     model.includeAlias = options.includeAlias;
     return model;
@@ -78,7 +79,7 @@ function modelFactory(  ) {
 
   function generateModelMap( specModels, utils ) {
     var models = {};
-    specModels.forEach(function( specModel ) {
+    specModels.models.forEach(function( specModel ) {
       var model = generateModel( { modelConf: specModel, utils: utils } );
       models[ model.name ] = model;
     });
