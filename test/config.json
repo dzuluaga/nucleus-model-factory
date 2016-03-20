@@ -1,0 +1,48 @@
+{
+  "default_environment": "development",
+  "development": {
+    "database": {
+      "name": "sequelize",
+      "host": "server.rds.amazonaws.com",
+      "username": "{username}",
+      "password": "{password}",
+      "dialect": "postgres",
+      "database": "{database_name}",
+      "pool": {
+        "max": 5,
+        "min": 0,
+        "idle": 10000
+      }
+    }
+  },
+  "test": {
+    "database": {
+      "name": "sequelize",
+      "host": "server.rds.amazonaws.com",
+      "username": "{username}",
+      "password": "{password}",
+      "dialect": "postgres",
+      "database": "{database_name}",
+      "pool": {
+        "max": 5,
+        "min": 0,
+        "idle": 10000
+      }
+    }
+  },
+  "production": {
+    "database": {
+      "name": "sequelize",
+      "host": "server.rds.amazonaws.com",
+      "username": "{username}",
+      "password": "{password}",
+      "dialect": "postgres",
+      "database": "{database_name}",
+      "pool": {
+        "max": 5,
+        "min": 0,
+        "idle": 10000
+      }
+    }
+  }
+}

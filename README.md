@@ -1,52 +1,41 @@
 # nucleus-model-factory
 This module generates Sequelize.js models based on JSON configuration. Models are used in combination with Express.js routes.
 
+### Installation
+
+```bash
+npm install nucleus-model-factory --save
+```
+
+### Using the API
+
+The example below uses edge-data-model.json file to represent the tables within the database. ```modelFactory.generateModelMap``` generates an actual Sequelize.js ORM (Object-Relational Mapping), which can be used with Sequelize.js [querying syntax](http://docs.sequelizejs.com/en/latest/docs/querying/) to apply CRUD operations.
+
 ```javascript
-"use strict";
-var config_all = require(__dirname + '/../config/config.json');
-var env = process.env.NODE_ENV || config_all.default_environment;
-var config = require('../config/config.json')[ env ];
+// ./test/sample.js
+
+var all_config = require('./config.json');
+var utils = require('nucleus-utils')( { config: all_config });
 var modelFactory = require('nucleus-model-factory');
-var urljoin = require('url-join');
 
+var models = modelFactory.generateModelMap( require('./edge-data-model.json'), utils );
 
-module.exports = function( sequelize, DataTypes ) {
-  var modelConf = {
-    model: 'Org',
-    name: 'Apigee Org',
-    path: '/orgs',
-    config: config,
-    listAttributes: ["id", "org_name", "account_id", "account_name", "org_type", "paid"],
-    //{"org_name": DataTypes.STRING, "account_id": DataTypes.STRING,
-    //  "account_name": DataTypes.STRING, "org_type": DataTypes.STRING, "paid": DataTypes.BOOLEAN },
-    sequelize: sequelize,
-    associations: [
-      {
-        rel: 'apis',
-        foreignKey: 'org_name',
-        modelName: 'OrgApi',
-        type: 'hasMany'
-      }
-    ],
-    schema: 'edge',
-    table: 'mt_org',
-    DataTypes: DataTypes,
-    customHyperLinks:
-        function( ) {
-          var orgApi = sequelize.import('../models/org_api');
-          return [{
-            "rel": ["apis_absolute_path"],
-            "href": urljoin(config.hateoas.url, config.hateoas.basepath, modelConf.path, this.get('id'), orgApi.path )
-          }]
-        },
-  };
-  var mf = new modelFactory( modelConf );
-  var Org = mf.generateModel( modelConf );
+console.log( models );
+```
 
-  //var modelSwagger = utils.generateSwagger(modelConf)
-
-  return Org;
-};
-
+Will result in this:
 
 ```
+$ node sample.js
+{ Org: Org,
+  OrgApi: OrgApi,
+  OrgApiRevision: OrgApiRevision,
+  OrgApiRevisionVersion: OrgApiRevisionVersion,
+  OrgApiRevisionVersionPolicy: OrgApiRevisionVersionPolicy,
+  OrgApiRevisionVersionProxy: OrgApiRevisionVersionProxy,
+  OrgApiRevisionVersionResourceFile: OrgApiRevisionVersionResourceFile,
+  AccountUserMap: AccountUserMap }
+Executing (default): SELECT 1+1 AS result
+connection to  sequelize  successful
+```
+
