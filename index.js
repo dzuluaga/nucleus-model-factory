@@ -2,11 +2,13 @@ var urljoin = require('url-join');
 var debug = require('debug')('nucleus-model-factory');
 
 
-function modelFactory(  ) {
+function modelFactory() {
   function getHyperLinks( options, config, sequelize ) {
     return function () {
-      var that = this;
+      //debug('getHyperLinks', this.$options.links);
       var hyperlinks = [];
+      if (!this.$options.links) return hyperlinks;
+      var that = this;
       var self = {
         "rel": ["self"],
         "href": urljoin( config.hateoas.url, config.hateoas.basepath, options.path, this.get('id') )
